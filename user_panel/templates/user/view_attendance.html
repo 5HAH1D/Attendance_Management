@@ -1,0 +1,26 @@
+{% extends 'user/base.html' %}
+
+{% block title %} User Attendance {% endblock %}
+
+
+{% block body %}
+    <div class="container" style="margin-top: 30px;">
+        <pre><h2>User:    {{user}}</h2><h2>Email:   {{user.email}}</h2><br></pre>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_record %}
+                <tr>
+                  <td>{{record.date}}</td>
+                  <td>{{record.status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'user/base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block style %}
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #2193b0, #6dd5ed);
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin-top: 80px;
+      height: 520px;
+    }
+
+    .btn {
+      margin-bottom: 10px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    .btn-primary {
+      background-color: #008cba;
+      border-color: #008cba;
+    }
+
+    .btn-primary:hover {
+      background-color: #007099;
+      border-color: #007099;
+    }
+
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+  </style>
+
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <img src="{{profile}}" alt="Profile Picture" class="profile-picture"><br>
+
+    <a href="change_profile_picture"><button class="btn btn-primary">Update Profile Picture</button></a>
+
+    <form action="mark_attendance" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Mark Attendance</button>
+    </form>
+
+    <form action="request_leave" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Request Leave</button>
+    </form>
+
+    <a href="{% url 'view_attendance' %}"><button class="btn btn-primary">View Attendance</button></a>
+
+    <a href="{% url 'logout_user' %}"><button type="submit" class="btn btn-primary">Logout</button></a>
+</div>
+
+{% endblock %}

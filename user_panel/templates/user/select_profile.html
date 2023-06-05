@@ -1,0 +1,30 @@
+{% extends 'user/base.html' %}
+{% block title %} Select Profile {% endblock %}
+
+{% block style %}
+<style type="text/css">
+	.container{
+		margin: 20px;
+		padding: 20px;
+	}
+	#select{
+		margin: 10px;
+		font-size: 20px;
+	}
+	.btn{
+		margin: 10px;
+		padding: 10px;
+		font-size: 20px;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<form action="change_profile_picture" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" accept="image/*" name="profile_picture" id="select"><br>
+        <button type="submit" class="btn btn-outline-primary">Change Profile Picture</button>
+    </form>
+</div>
+{% endblock %}

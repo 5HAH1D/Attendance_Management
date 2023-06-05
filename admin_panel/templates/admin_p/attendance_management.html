@@ -1,0 +1,81 @@
+{% extends 'admin_p/base.html' %}
+{% block title %} Attendance Management {% endblock %}
+{% block body %}
+    <div class="container">
+        <h1 class="my-4">Attendance Management</h1>
+        
+        <form action="attendance_management" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="user">User</label>
+                    <select id="user" name="user_id" class="form-control">
+                        {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control" id="date" name="date">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                        <option value="Leave">Leave</option>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="action" value="add">
+            <button type="submit" class="btn btn-outline-primary">Add Record</button>
+        </form>
+
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <tr>
+                            <td>{{ record.user.username }}</td>
+                            <td>{{ record.date }}</td>
+                            <td>
+                                <select name="status" class="form-control">
+                                    <option value="Present" {% if record.status == "Present" %}selected{% endif %}>Present</option>
+                                    <option value="Absent" {% if record.status == "Absent" %}selected{% endif %}>Absent</option>
+                                    <option value="Leave" {% if record.status == "Leave" %}selected{% endif %}>Leave</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="hidden" name="user_id" value="{{ record.user.id }}">
+                                <input type="hidden" name="date" value="{{ record.date }}">
+                                <input type="hidden" name="action" value="edit">
+                                <button type="submit" class="btn btn-outline-success">Save</button>
+                            </td>
+                        
+                    </form>
+                    <form action="attendance_management" method="post">
+                        {% csrf_token %}
+                            <td>
+                                <input type="hidden" name="user_id" value="{{ record.user.id }}">
+                                <input type="hidden" name="date" value="{{ record.date }}">
+                                <input type="hidden" name="action" value="delete">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </td>
+                        
+                    </form>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

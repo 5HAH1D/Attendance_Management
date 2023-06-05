@@ -1,0 +1,26 @@
+{% extends 'admin_p/base.html' %}
+
+{% block title %} User Attendance Report {% endblock %}
+
+
+{% block body %}
+    <div class="container" style="margin-top: 30px;">
+        <pre><h2>Username:   {{user}}</h2><h2>From:       {{from_date}}</h2><h2>To:         {{to_date}}</h2><br></pre>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                <tr>
+                  <td>{{record.date}}</td>
+                  <td>{{record.status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

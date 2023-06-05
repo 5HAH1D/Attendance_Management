@@ -1,0 +1,91 @@
+{% extends 'admin_p/base.html' %}
+{% block title %} Dashboard {% endblock %}
+
+{% block style %}
+<style type="text/css">
+  .user_count{
+    margin: 20px;
+    padding: 10px;
+    background-color: lightgrey;
+    height: 150px;
+    box-shadow: 2px 4px 7px black;
+  }
+
+  .side{
+    color: palegreen;
+    margin-top: 10px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#" style="margin-left: 20px;"><h3>Dashboard</h3></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link btn btn-outline-secondary" href="{% url 'logout_admin' %}" style="color: orangered;">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar" style="height: 530px; padding-top: 20px;">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'user_record_management' %}">Users Record</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'attendance_management' %}">Manage Attendance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'user_attendance_report' %}">User Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'leave_requests' %}">Leave Requests <span class="badge badge-light">{{leaves}}</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'system_report' %}">System Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-secondary side" href="{% url 'grading_system' %}">Grading System</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+      <div class="row">
+        <div class="user_count col-5 btn btn-outline-secondary" onclick="window.location.href='{% url 'user_record_management' %}'">
+          <h1>Total Users</h1>
+          <h2 style="margin-top: 20px;">{{user_count}}</h2>
+        </div>
+        <div class="user_count col-5 btn btn-outline-secondary" >
+          <h1>Admins</h1>
+          <h2 style="margin-top: 20px;">{{admins}}</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="user_count col-5 btn btn-outline-secondary" onclick="window.location.href='{% url 'leave_requests' %}'">
+          <h1>Leave Requests</h1>
+          <h2 style="margin-top: 20px;">{{leaves}}</h2>
+        </div>
+        <div class="user_count col-5 btn btn-outline-secondary">
+          <h1>Recently Joined</h1>
+          <h2 style="margin-top: 20px;">{{recent_users}}</h2>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+{% endblock %}
